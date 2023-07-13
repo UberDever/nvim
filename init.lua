@@ -15,7 +15,17 @@ local plugins = {
 		'nvim-telescope/telescope.nvim', tag = '0.1.2',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
-	"rebelot/kanagawa.nvim",
+    {"rebelot/kanagawa.nvim"},
+    {
+        "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            {
+                "nvim-tree/nvim-web-devicons",
+                event = "VeryLazy",
+            },
+        },
+        config = function(_, _) vim.cmd([[TSUpdate]]) end
+    }
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -23,3 +33,4 @@ require("lazy").setup(plugins, opts)
 require("uber.settings")
 require("uber.mappings")
 require("uber.telescope")
+require("uber.treesitter")

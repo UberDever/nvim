@@ -14,14 +14,14 @@ telescope.setup{
             n = {
                 ["<C-S>"] = actions.select_horizontal,
                 ["<C-s>"] = actions.select_vertical,
-                ["<C-j>"] = actions.preview_scrolling_up,
-                ["<C-k>"] = actions.preview_scrolling_down,
+                ["<C-k>"] = actions.preview_scrolling_up,
+                ["<C-j>"] = actions.preview_scrolling_down,
             },
             i = {
                 ["<C-n>"] = actions.move_selection_next,
                 ["<C-p>"] = actions.move_selection_previous,
-                ["<C-j>"] = actions.preview_scrolling_up,
-                ["<C-k>"] = actions.preview_scrolling_down,
+                ["<C-k>"] = actions.preview_scrolling_up,
+                ["<C-j>"] = actions.preview_scrolling_down,
             },
         },
     },

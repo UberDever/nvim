@@ -8,6 +8,7 @@ local options = {
 	number = true,
 	so = 7,
 	ruler = true,
+    mouse = "",
 }
 
 for k, v in pairs(options) do
