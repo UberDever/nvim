@@ -1,6 +1,10 @@
 local M = {}
 
 function M.setup()
+    vim.keymap.set("n", "<leader>fp", "<cmd> Telescope find_files <CR>", opts)
+    vim.keymap.set("n", "<leader>ff", "<cmd> Telescope git_files <CR>", opts)
+    vim.keymap.set("n", "<leader>fs", "<cmd> Telescope live_grep <CR>", opts)
+
     local ok, telescope = pcall(require, "telescope")
     if not ok then
         print("Telescope not found :(")

@@ -1,16 +1,32 @@
 local M = {}
 
 local options = {
+    history = 500,
+
 	tabstop = 4,
 	shiftwidth = 4,
 	expandtab = true,
 	smarttab = true,
+    smartindent = true,
+    autoindent = true,
+
 	autoread = true,
-	magic = true,
-	number = true,
-	so = 7,
+	scrolloff = 8,
 	ruler = true,
+    wrap = false,
+    smartcase = true,
+    hlsearch = false,
+    incsearch = true,
+	magic = true,
+
+	number = true,
     mouse = "",
+    encoding = "utf8",
+    lisp = true,
+
+    swapfile = false,
+    termguicolors = true,
+    colorcolumn = "120",
 }
 
 function M.setup()

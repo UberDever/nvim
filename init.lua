@@ -4,6 +4,7 @@ telescope_ = require("uber.telescope")
 treesitter_ = require("uber.treesitter")
 autoclose_ = require("uber.autoclose")
 nvimtree_ = require("uber.nvimtree")
+todocomments_ = require("uber.todo-comments")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -44,6 +45,10 @@ local plugins = {
         config = function()
             require("nvim-tree").setup(nvimtree_.config)
         end
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
     }
 }
 local opts = {}
@@ -55,3 +60,4 @@ telescope_.setup()
 treesitter_.setup()
 autoclose_.setup()
 nvimtree_.setup()
+todocomments_.setup()
