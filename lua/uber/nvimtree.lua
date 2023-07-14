@@ -19,14 +19,18 @@ function my_on_attach(bufnr)
     api.config.mappings.default_on_attach(bufnr)
 
     -- custom mappings
-    vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up'))
-    vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
+    -- vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up'))
+    vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+    vim.keymap.set('n', '<Esc>', api.tree.close, {})
 end
 
 M.config = {
     sort_by = "case_sensitive",
     view = {
         width = 30,
+        float = {
+            enable = true
+        }
     },
     on_attach = my_on_attach,
 }

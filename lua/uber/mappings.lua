@@ -47,6 +47,9 @@ function M.setup()
     map("n", "<leader>ff", "<cmd> Telescope git_files <CR>", opts)
     map("n", "<leader>fs", "<cmd> Telescope live_grep <CR>", opts)
     -- map("n", "<leader>fs", "<cmd> Telescope grep_string <CR>", opts)
+
+    -- Nvim-tree
+    map("n", "<leader>fm", "<cmd> NvimTreeFocus <CR>", opts)
 end
 
 return M
