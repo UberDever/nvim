@@ -1,3 +1,5 @@
+local M = {}
+
 local options = {
 	tabstop = 4,
 	shiftwidth = 4,
@@ -11,15 +13,19 @@ local options = {
     mouse = "",
 }
 
-for k, v in pairs(options) do
-	vim.opt[k] = v
+function M.setup()
+    for k, v in pairs(options) do
+        vim.opt[k] = v
+    end
+
+    function Beautify(color)
+        color = color or "industry"
+        vim.cmd.colorscheme(color)
+
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    end
+    Beautify("kanagawa")
 end
 
-function Beautify(color)
-	color = color or "industry"
-	vim.cmd.colorscheme(color)
-
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
-Beautify("kanagawa")
+return M
