@@ -1,6 +1,6 @@
 local M = {}
 
-local config = {
+local autoclose_config = {
    keys = {
       ["("] = { escape = false, close = true, pair = "()", disabled_filetypes = {} },
       ["["] = { escape = false, close = true, pair = "[]", disabled_filetypes = {} },
@@ -24,7 +24,9 @@ local config = {
 }
 
 function M.setup()
-    require("autoclose").setup(config)
+    require("autoclose").setup(autoclose_config)
+    require("todo-comments").setup()
+    require('nvim_comment').setup({create_mappings = false})
 end
 
 return M

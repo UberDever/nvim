@@ -2,6 +2,7 @@ local M = {}
 
 local options = {
     history = 500,
+    signcolumn = 'yes:1',
 
 	tabstop = 4,
 	shiftwidth = 4,

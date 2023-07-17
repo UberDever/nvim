@@ -1,22 +1,34 @@
 local M = {}
 
 function M.setup()
-    local lsp = require('lsp-zero').preset({})
-
-    lsp.on_attach(function(client, bufnr)
-        lsp.default_keymaps({ buffer = bufnr })
-    end)
-
-    lsp.extend_cmp()
-
-    require('mason').setup({})
-    require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls' },
-        handlers = { lsp.default_setup },
+    vim.api.nvim_create_autocmd('LspAttach', {
+        desc = 'LSP actions',
+        callback = function(args)
+            local bufnr = args.buf
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            local opts = { noremap = true, silent = true }
+            vim.keymap.set('n', 'gi', vim.lsp.buf.hover, opts)
+        end
     })
 
-    local opts = { noremap = true, silent = true }
-    vim.keymap.set('n', 'G', vim.lsp.buf.hover, opts)
+    require('mason').setup()
+    require('mason-lspconfig').setup({
+        ensure_installed = {
+            'lua_ls', 'clangd', 'cmake', 'gopls', 'marksman', 'pylsp'
+        }
+    })
+
+    local lspconfig = require('lspconfig')
+    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    require('mason-lspconfig').setup_handlers({
+        function(server_name)
+            lspconfig[server_name].setup({
+                capabilities = lsp_capabilities,
+            })
+        end,
+    })
+    lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 end
 
 return M

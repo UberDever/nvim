@@ -2,9 +2,8 @@ settings_ = require("uber.settings")
 mappings_ = require("uber.mappings")
 telescope_ = require("uber.telescope")
 treesitter_ = require("uber.treesitter")
-autoclose_ = require("uber.autoclose")
+util_ = require("uber.util")
 nvimtree_ = require("uber.nvimtree")
-todocomments_ = require("uber.todo-comments")
 lsp_ = require("uber.lsp")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -36,7 +35,6 @@ local plugins = {
         },
         config = function(_, _) vim.cmd([[TSUpdate]]) end
     },
-    { 'm4xshen/autoclose.nvim' },
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
@@ -49,13 +47,7 @@ local plugins = {
         end
     },
     {
-        "folke/todo-comments.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    {
-        { 'VonHeikemen/lsp-zero.nvim',        branch = 'dev-v3' },
-
-        --- Uncomment these if you want to manage LSP servers from neovim
+        -- Manage LSP servers from neovim
         { 'williamboman/mason.nvim' },
         { 'williamboman/mason-lspconfig.nvim' },
 
@@ -74,7 +66,13 @@ local plugins = {
                 { 'L3MON4D3/LuaSnip' },
             }
         },
-    }
+    },
+    { 'm4xshen/autoclose.nvim' },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {'terrortylor/nvim-comment'}
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -83,7 +81,6 @@ settings_.setup()
 mappings_.setup()
 telescope_.setup()
 treesitter_.setup()
-autoclose_.setup()
 nvimtree_.setup()
-todocomments_.setup()
 lsp_.setup()
+util_.setup()

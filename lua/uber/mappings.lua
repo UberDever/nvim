@@ -6,15 +6,28 @@ local term_opts = { silent = true }
 function M.setup()
     vim.g.mapleader = " "
     vim.g.maplocalleader = " "
-    
+    -- Basic intuition about combinations:
+    -- Two key combinations - for very useful/coherent commands
+    -- Shift - for basic vim movement + most useful commands
+    -- Alt - for managing workspace (hence `meta` name)
+    -- Control - for more sophisticated movement/less useful commands
+    -- Space - for plugins and their stuff
+
     -- Basic movement
     vim.keymap.set("n", "J", "}", opts)
     vim.keymap.set("n", "K", "{", opts)
     vim.keymap.set("n", "L", "w", opts)
     vim.keymap.set("n", "H", "b", opts)
-    vim.keymap.set("n", "<M-j>", "<C-d>zz", opts)
-    vim.keymap.set("n", "<M-k>", "<C-u>zz", opts)
+    vim.keymap.set("n", "<C-j>", "<C-d>zz", opts)
+    vim.keymap.set("n", "<C-k>", "<C-u>zz", opts)
+    -- Go back and forth jumplist
+    vim.keymap.set("n", "<C-.>", "<C-i>", opts)
+    vim.keymap.set("n", "<C-,>", "<C-o>", opts)
+    -- Go back and forth quickfix list
+    vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
+    vim.keymap.set("n", "<C-p>", ":cp<CR>", opts)
 
+    -- Goto movements
     vim.keymap.set("n", "gj", "G", opts)
     vim.keymap.set("n", "gk", "gg", opts)
     vim.keymap.set("n", "gl", "$", opts)
@@ -44,10 +57,6 @@ function M.setup()
     -- Stay at middle line when searching
     vim.keymap.set("n", "n", "nzzzv", opts)
     vim.keymap.set("n", "N", "Nzzzv", opts)
-
-    -- Go back and forth jumplist
-    vim.keymap.set("n", "<M-.>", "<C-i>", opts)
-    vim.keymap.set("n", "<M-,>", "<C-o>", opts)
 
     -- Clipboard stuff
     vim.keymap.set("x", "<C-p>", "\"_dP", {})
