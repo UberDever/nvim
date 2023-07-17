@@ -1,7 +1,6 @@
 local M = {}
 
 local opts = { noremap = true, silent = true }
-local term_opts = { silent = true }
 
 function M.setup()
     vim.g.mapleader = " "
@@ -13,6 +12,9 @@ function M.setup()
     -- Control - for more sophisticated movement/less useful commands
     -- Space - for plugins and their stuff
 
+    -- Help for symbol under cursor
+    vim.keymap.set("n", "g?", "K", opts)
+
     -- Basic movement
     vim.keymap.set("n", "J", "}", opts)
     vim.keymap.set("n", "K", "{", opts)
@@ -20,12 +22,12 @@ function M.setup()
     vim.keymap.set("n", "H", "b", opts)
     vim.keymap.set("n", "<C-j>", "<C-d>zz", opts)
     vim.keymap.set("n", "<C-k>", "<C-u>zz", opts)
-    -- Go back and forth jumplist
-    vim.keymap.set("n", "<C-.>", "<C-i>", opts)
-    vim.keymap.set("n", "<C-,>", "<C-o>", opts)
-    -- Go back and forth quickfix list
-    vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
-    vim.keymap.set("n", "<C-p>", ":cp<CR>", opts)
+    -- Go back and forth jumplist (use default ones)
+    -- vim.keymap.set("n", "<C-.>", "<C-i>", opts)
+    -- vim.keymap.set("n", "<C-,>", "<C-o>", opts)
+    -- Go back and forth quickfix list (don't use it)
+    -- vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
+    -- vim.keymap.set("n", "<C-p>", ":cp<CR>", opts)
 
     -- Goto movements
     vim.keymap.set("n", "gj", "G", opts)
@@ -43,7 +45,8 @@ function M.setup()
     vim.keymap.set("n", "Q", ":q<CR>", opts)
 
     -- Windows, tabs, buffers
-    vim.keymap.set("n", "<M-w>", "<C-w>w", opts)
+    vim.keymap.set("n", "<M-j>", "<C-w>w", opts)
+    vim.keymap.set("n", "<M-k>", "<C-w>W", opts)
     vim.keymap.set("n", "<M-s>", "<C-w>s", opts)
     vim.keymap.set("n", "<M-v>", "<C-w>v", opts)
     vim.keymap.set("n", "<M-t>", ":tabnew %<CR> :bprev<CR>", opts)
@@ -53,6 +56,7 @@ function M.setup()
     vim.keymap.set("n", "<M-l>", "gt", opts)
     vim.keymap.set("n", "<M-h>", "gT", opts)
     vim.keymap.set("n", "<M-b>", "<cmd> Telescope buffers <CR>", {})
+    vim.keymap.set("n", "<M-q>", "<cmd> bdelete <CR>", {})
 
     -- Stay at middle line when searching
     vim.keymap.set("n", "n", "nzzzv", opts)
@@ -65,7 +69,7 @@ function M.setup()
 
     -- Replace word under cursor
     vim.keymap.set("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-    
+
     -- VISUAL
     -- Shift selected text up and down
     vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)

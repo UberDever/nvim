@@ -4,23 +4,23 @@ local options = {
     history = 500,
     signcolumn = 'yes:1',
 
-	tabstop = 4,
-	shiftwidth = 4,
-	expandtab = true,
-	smarttab = true,
+    tabstop = 4,
+    shiftwidth = 4,
+    expandtab = true,
+    smarttab = true,
     smartindent = true,
     autoindent = true,
 
-	autoread = true,
-	scrolloff = 8,
-	ruler = true,
+    autoread = true,
+    scrolloff = 8,
+    ruler = true,
     wrap = false,
     smartcase = true,
     hlsearch = false,
     incsearch = true,
-	magic = true,
+    magic = true,
 
-	number = true,
+    number = true,
     relativenumber = true,
     mouse = "",
     encoding = "utf8",
@@ -29,6 +29,8 @@ local options = {
     swapfile = false,
     termguicolors = true,
     colorcolumn = "120",
+    updatetime = 700,
+    keywordprg = ':help'
 }
 
 function M.setup()
@@ -43,6 +45,7 @@ function M.setup()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     end
+
     Beautify("kanagawa")
 end
 

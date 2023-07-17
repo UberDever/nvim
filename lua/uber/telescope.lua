@@ -1,6 +1,7 @@
 local M = {}
 
 function M.setup()
+    local opts = { noremap = true, silent = true }
     vim.keymap.set("n", "<leader>fp", "<cmd> Telescope find_files <CR>", opts)
     vim.keymap.set("n", "<leader>ff", "<cmd> Telescope git_files <CR>", opts)
     vim.keymap.set("n", "<leader>fs", "<cmd> Telescope live_grep <CR>", opts)
@@ -13,7 +14,7 @@ function M.setup()
 
     local actions = require("telescope.actions")
 
-    telescope.setup{
+    telescope.setup {
         defaults = {
             prompt_prefix = " ",
             path_display = { "smart" },

@@ -1,10 +1,11 @@
-settings_ = require("uber.settings")
-mappings_ = require("uber.mappings")
-telescope_ = require("uber.telescope")
-treesitter_ = require("uber.treesitter")
-util_ = require("uber.util")
-nvimtree_ = require("uber.nvimtree")
-lsp_ = require("uber.lsp")
+local settings_ = require("uber.settings")
+local mappings_ = require("uber.mappings")
+local telescope_ = require("uber.telescope")
+local treesitter_ = require("uber.treesitter")
+local util_ = require("uber.util")
+local nvimtree_ = require("uber.nvimtree")
+local lsp_ = require("uber.lsp")
+local autocomplete_ = require("uber.autocomplete")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -72,7 +73,13 @@ local plugins = {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
-    {'terrortylor/nvim-comment'}
+    { 'terrortylor/nvim-comment' },
+
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/cmp-buffer' },
+    { 'hrsh7th/cmp-path' },
+    { 'hrsh7th/cmp-cmdline' },
+    { 'hrsh7th/nvim-cmp' },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -82,5 +89,6 @@ mappings_.setup()
 telescope_.setup()
 treesitter_.setup()
 nvimtree_.setup()
+autocomplete_.setup()
 lsp_.setup()
 util_.setup()

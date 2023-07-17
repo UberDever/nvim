@@ -4,7 +4,7 @@ function M.setup()
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
 
-    vim.keymap.set("n", "<leader>tt", ":NvimTreeFindFileToggle<CR>", {noremap = true, silent = true})
+    vim.keymap.set("n", "<leader>tt", ":NvimTreeFindFileToggle<CR>", { noremap = true, silent = true })
 end
 
 function my_on_attach(bufnr)
