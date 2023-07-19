@@ -1,6 +1,29 @@
 {
-    "diagnostics.globals": [
-        "vim",
-        "my_on_attach"
+    "workspace.library": [
+        "/home/huawei/.local/share/nvim/lazy/neodev.nvim/types/stable",
+        "/home/huawei/apps/nvim/share/nvim/runtime/lua",
+        "/home/huawei/.local/share/nvim/lazy/cmp-nvim-lsp/lua",
+        "/home/huawei/.local/share/nvim/lazy/cmp-buffer/lua",
+        "/home/huawei/.local/share/nvim/lazy/nvim-web-devicons/lua",
+        "/home/huawei/.local/share/nvim/lazy/nvim-cmp/lua",
+        "/home/huawei/.local/share/nvim/lazy/cmp-path/lua",
+        "/home/huawei/.local/share/nvim/lazy/nvim-tree.lua/lua",
+        "/home/huawei/.local/share/nvim/lazy/LuaSnip/lua",
+        "/home/huawei/.local/share/nvim/lazy/cmp-cmdline/lua",
+        "/home/huawei/.local/share/nvim/lazy/telescope.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/nvim-treesitter/lua",
+        "/home/huawei/.local/share/nvim/lazy/lazy.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/mason-lspconfig.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/todo-comments.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/maximize.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/neodev.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/nvim-lspconfig/lua",
+        "/home/huawei/.local/share/nvim/lazy/kanagawa.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/mason.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/nvim-comment/lua",
+        "/home/huawei/.local/share/nvim/lazy/plenary.nvim/lua",
+        "/home/huawei/.local/share/nvim/lazy/autoclose.nvim/lua",
+        "/home/huawei/.config/nvim/lua",
+        "${3rd}/luv/library"
     ]
 }

@@ -34,12 +34,6 @@ function M.setup()
     -- Save without formatting
     vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
 
-    -- vim.api.nvim_create_autocmd('InsertLeave', {
-    --     callback = function(_)
-    --         local config = { open = false, severity = vim.diagnostic.severity.ERROR }
-    --         vim.diagnostic.setqflist(config)
-    --     end,
-    -- })
 
     require('mason').setup()
     require('mason-lspconfig').setup({
@@ -47,6 +41,8 @@ function M.setup()
             'lua_ls', 'clangd', 'cmake', 'gopls', 'marksman', 'pylsp'
         }
     })
+
+    require('neodev').setup({ library = { plugins = { "nvim-dap-ui" }, types = true }, })
 
     local lspconfig = require('lspconfig')
     local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()

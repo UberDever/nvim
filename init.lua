@@ -81,7 +81,13 @@ local plugins = {
     { 'hrsh7th/cmp-cmdline' },
     { 'hrsh7th/nvim-cmp' },
 
-    { 'declancm/maximize.nvim' }
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "mfussenegger/nvim-dap" }
+    },
+
+    { 'declancm/maximize.nvim' },
+    { 'folke/neodev.nvim' }
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
