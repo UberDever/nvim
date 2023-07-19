@@ -61,6 +61,7 @@ function M.setup()
                     ["<C-s>"] = actions.select_vertical,
                     ["<C-k>"] = actions.preview_scrolling_up,
                     ["<C-j>"] = actions.preview_scrolling_down,
+                    ["<C-e>"] = actions.delete_buffer,
                 },
                 i = {
                     ["<C-n>"] = actions.move_selection_next,

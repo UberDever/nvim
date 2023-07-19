@@ -20,7 +20,9 @@ function M.setup()
             vim.keymap.set('n', 'gc', vim.lsp.buf.rename, opts)
 
             -- Format on save
-            vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+            if client.supports_method('textDocument/formatting') then
+                vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+            end
 
             if client.supports_method('textDocument/documentHighlight') then
                 -- Highlight symbol under cursor
