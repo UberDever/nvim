@@ -6,7 +6,6 @@ function M.setup()
         callback = function(args)
             local bufnr = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-            _ = client
             local opts = { noremap = true, silent = true, buffer = bufnr }
             vim.keymap.set('n', 'gg', vim.lsp.buf.hover, opts)
             vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, opts)
@@ -19,16 +18,18 @@ function M.setup()
             vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, opts)
             vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, opts)
             vim.keymap.set('n', 'gc', vim.lsp.buf.rename, opts)
+
+            -- Format on save
+            vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+
+            if client.supports_method('textDocument/documentHighlight') then
+                -- Highlight symbol under cursor
+                vim.cmd [[autocmd CursorHold  * lua vim.lsp.buf.document_highlight()]]
+                vim.cmd [[autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()]]
+                vim.cmd [[autocmd CursorMoved * lua vim.lsp.buf.clear_references()]]
+            end
         end
     })
-
-    -- Format on save
-    vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-
-    -- Highlight symbol under cursor
-    vim.cmd [[autocmd CursorHold  * lua vim.lsp.buf.document_highlight()]]
-    vim.cmd [[autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()]]
-    vim.cmd [[autocmd CursorMoved * lua vim.lsp.buf.clear_references()]]
 
     -- Save without formatting
     vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
@@ -53,7 +54,7 @@ function M.setup()
         function(server_name)
             lspconfig[server_name].setup({
                 capabilities = lsp_capabilities,
-                handlers = handlers,
+                -- handlers = handlers,
             })
         end,
     })

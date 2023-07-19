@@ -56,7 +56,7 @@ function M.setup()
     vim.keymap.set("n", "<M-l>", "gt", opts)
     vim.keymap.set("n", "<M-h>", "gT", opts)
     vim.keymap.set("n", "<M-b>", "<cmd> Telescope buffers <CR>", {})
-    vim.keymap.set("n", "<M-q>", "<cmd> bdelete <CR>", {})
+    vim.keymap.set("n", "<M-q>", "<cmd> bp|bd # <CR>", {})
 
     -- Stay at middle line when searching
     vim.keymap.set("n", "n", "nzzzv", opts)
@@ -64,7 +64,8 @@ function M.setup()
 
     -- Clipboard stuff
     vim.keymap.set("x", "<C-p>", "\"_dP", {})
-    vim.keymap.set("n", "<C-y>", "\"+y")
+    vim.keymap.set("n", "<C-p>", "\"*p", {})
+    vim.keymap.set("n", "<C-y>", "\"*y")
     vim.keymap.set("n", "<C-d>", "\"_d")
 
     -- Replace word under cursor
@@ -76,7 +77,8 @@ function M.setup()
     vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
 
     -- Clipboard stuff
-    vim.keymap.set("v", "<C-y>", "\"+y")
+    vim.keymap.set("v", "<C-y>", "\"*y")
+    vim.keymap.set("v", "<C-p>", "\"*p", {})
     vim.keymap.set("v", "<C-d>", "\"_d")
 end
 
