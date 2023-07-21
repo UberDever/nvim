@@ -1,8 +1,98 @@
 local M = {}
 
 function M.setup()
+    -- Save without formatting
+    vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
+
+    -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+    require('neodev').setup({ library = { plugins = { "nvim-dap-ui" }, types = true }, })
+
+    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    local default_on_attach = function(client, bufnr)
+        -- Format on save
+        if client.server_capabilities.documentFormattingProvider then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                callback = function()
+                    vim.lsp.buf.format()
+                end,
+                buffer = bufnr
+            })
+        end
+
+        if client.server_capabilities.documentHighlightProvider then
+            -- Highlight symbol under cursor
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                callback = function()
+                    vim.lsp.buf.document_highlight()
+                end,
+                buffer = bufnr
+            })
+            vim.api.nvim_create_autocmd('CursorHold', {
+                callback = function()
+                    vim.lsp.buf.clear_references()
+                end,
+                buffer = bufnr
+            })
+        end
+    end
+
+    local lspconfig = require('lspconfig')
+    local default_setup_server = function(server_name)
+        lspconfig[server_name].setup {
+            on_attach = default_on_attach,
+            capabilities = lsp_capabilities
+        }
+    end
+
+    local handlers = {
+        default_setup_server,
+        ["lua_ls"] = function()
+            lspconfig.lua_ls.setup {
+                capabilities = lsp_capabilities,
+                on_attach = default_on_attach,
+                settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+        end,
+        ["gopls"] = function()
+            lspconfig.gopls.setup {
+                cmd = { "gopls", "serve" },
+                filetypes = { "go", "gomod" },
+                root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+                capabilities = lsp_capabilities,
+                on_attach = function(client, bufnr)
+                    default_on_attach(client, bufnr)
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+                        end,
+                    })
+                end,
+                settings = {
+                    gopls = {
+                        completeUnimported = true,
+                        usePlaceholders = true,
+                        analyses = {
+                            unusedparams = true,
+                        },
+                        staticcheck = true,
+                    },
+                },
+            }
+        end
+    }
+
+    require('mason').setup()
+    require('mason-lspconfig').setup({
+        ensure_installed = {
+            'lua_ls', 'clangd', 'cmake', 'gopls', 'marksman', 'pylsp'
+        },
+        handlers = handlers,
+    })
+
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
+        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(args)
             local bufnr = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -18,71 +108,6 @@ function M.setup()
             vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, opts)
             vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, opts)
             vim.keymap.set('n', 'gc', vim.lsp.buf.rename, opts)
-
-            -- Format on save
-            if client.supports_method('textDocument/formatting') then
-                vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-            end
-
-            if client.supports_method('textDocument/documentHighlight') then
-                -- Highlight symbol under cursor
-                vim.cmd [[autocmd CursorHold  * lua vim.lsp.buf.document_highlight()]]
-                vim.cmd [[autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()]]
-                vim.cmd [[autocmd CursorMoved * lua vim.lsp.buf.clear_references()]]
-            end
-        end
-    })
-
-    -- Save without formatting
-    vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
-
-
-    require('mason').setup()
-    require('mason-lspconfig').setup({
-        ensure_installed = {
-            'lua_ls', 'clangd', 'cmake', 'gopls', 'marksman', 'pylsp'
-        }
-    })
-
-    require('neodev').setup({ library = { plugins = { "nvim-dap-ui" }, types = true }, })
-
-    local lspconfig = require('lspconfig')
-    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-    require('mason-lspconfig').setup_handlers({
-        function(server_name)
-            lspconfig[server_name].setup({
-                capabilities = lsp_capabilities,
-                -- handlers = handlers,
-            })
-        end,
-    })
-
-    -- Lua
-    lspconfig.lua_ls.setup {
-        capabilities = lsp_capabilities,
-        settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
-
-    -- Golang
-    lspconfig.gopls.setup {
-        cmd = { "gopls", "serve" },
-        filetypes = { "go", "gomod" },
-        root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
-        capabilities = lsp_capabilities,
-        settings = {
-            gopls = {
-                completeUnimported = true,
-                usePlaceholders = true,
-                analyses = {
-                    unusedparams = true,
-                },
-                staticcheck = true,
-            },
-        },
-    }
-    vim.api.nvim_create_autocmd('BufWritePre', {
-        pattern = '*.go',
-        callback = function()
-            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
         end
     })
 end
