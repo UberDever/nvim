@@ -94,20 +94,7 @@ function M.setup()
         desc = 'LSP actions',
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(args)
-            local bufnr = args.buf
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            local opts = { noremap = true, silent = true, buffer = bufnr }
-            vim.keymap.set('n', 'gg', vim.lsp.buf.hover, opts)
-            vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, opts)
-            vim.keymap.set('n', 'gd', '<cmd> Telescope lsp_definitions <CR>', opts)
-            vim.keymap.set('n', 'gi', '<cmd> Telescope lsp_implementations <CR>', opts)
-            vim.keymap.set('n', 'gr', '<cmd> Telescope lsp_references <CR>', opts)
-            vim.keymap.set('n', 'gt', '<cmd> Telescope lsp_type_definitions <CR>', opts)
-            vim.keymap.set('n', 'ga', '<cmd> Telescope lsp_document_symbols <CR>', opts)
-            vim.keymap.set('n', 'ge', '<cmd> Telescope diagnostics <CR>', opts)
-            vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, opts)
-            vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, opts)
-            vim.keymap.set('n', 'gc', vim.lsp.buf.rename, opts)
+            require("uber/mappings").lsp_mappings(args)
         end
     })
 end

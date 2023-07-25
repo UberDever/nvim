@@ -26,16 +26,6 @@ local autoclose_config = {
 function M.setup()
     require("autoclose").setup(autoclose_config)
     require("todo-comments").setup()
-
-    local comment_config = {
-        line_mapping = "<C-_><C-_>",
-        operator_mapping = "<C-_>",
-    }
-    require('nvim_comment').setup(comment_config)
-
-    local maximize = require('maximize')
-    maximize.setup()
-    vim.keymap.set('n', '<M-m>', maximize.toggle, { noremap = true, silent = true })
 end
 
 return M

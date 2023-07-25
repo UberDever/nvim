@@ -87,13 +87,20 @@ local plugins = {
     },
 
     { 'declancm/maximize.nvim' },
-    { 'folke/neodev.nvim' }
+    { 'folke/neodev.nvim' },
+    { "cbochs/portal.nvim" },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
 
 settings_.setup()
 mappings_.setup()
+mappings_.telescope_setup()
+mappings_.portal_setup()
+mappings_.comment_setup()
+mappings_.maximize_setup()
+mappings_.nvimtree_setup()
+
 telescope_.setup()
 treesitter_.setup()
 nvimtree_.setup()
