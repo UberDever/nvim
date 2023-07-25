@@ -28,7 +28,7 @@ function M.setup()
                 end,
                 buffer = bufnr
             })
-            vim.api.nvim_create_autocmd('CursorHold', {
+            vim.api.nvim_create_autocmd('CursorMoved', {
                 callback = function()
                     vim.lsp.buf.clear_references()
                 end,

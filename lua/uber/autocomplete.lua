@@ -18,10 +18,10 @@ function M.setup()
             -- documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-p>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-n>'] = cmp.mapping.scroll_docs(4),
-            ['<C-j>'] = cmp.mapping.select_next_item(),
-            ['<C-k>'] = cmp.mapping.select_prev_item(),
+            ['<C-j>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-k>'] = cmp.mapping.scroll_docs(4),
+            ['<C-n>'] = cmp.mapping.select_next_item(),
+            ['<C-p>'] = cmp.mapping.select_prev_item(),
             ['<Esc>'] = (function() cmp.mapping.abort() end)(),
             ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
             ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),

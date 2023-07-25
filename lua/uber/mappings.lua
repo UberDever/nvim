@@ -46,6 +46,7 @@ function M.setup()
 
     -- Windows, tabs, buffers
     vim.keymap.set("n", "<Tab>", "<C-w>w", opts)
+    -- vim.keymap.set("n", "<M-k>", "<C-w>W", opts)
     vim.keymap.set("n", "<M-s>", "<C-w>s", opts)
     vim.keymap.set("n", "<M-v>", "<C-w>v", opts)
     vim.keymap.set("n", "<M-t>", ":tabnew %<CR> :bprev<CR>", opts)
