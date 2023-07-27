@@ -6,6 +6,7 @@ local util_ = require("uber.util")
 local nvimtree_ = require("uber.nvimtree")
 local lsp_ = require("uber.lsp")
 local autocomplete_ = require("uber.autocomplete")
+local debug_ = require("uber.debug")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -89,6 +90,9 @@ local plugins = {
     { 'declancm/maximize.nvim' },
     { 'folke/neodev.nvim' },
     { "cbochs/portal.nvim" },
+
+    { 'mfussenegger/nvim-dap' },
+    { "rcarriga/nvim-dap-ui" },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -106,4 +110,5 @@ treesitter_.setup()
 nvimtree_.setup()
 autocomplete_.setup()
 lsp_.setup()
+debug_.setup()
 util_.setup()
