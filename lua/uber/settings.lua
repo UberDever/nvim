@@ -30,7 +30,8 @@ local options = {
     termguicolors = true,
     colorcolumn = "120",
     updatetime = 700,
-    keywordprg = ':help'
+    keywordprg = ':help',
+
 }
 
 function M.setup()

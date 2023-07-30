@@ -164,6 +164,15 @@ function M.setup()
     -- Replace word under cursor
     vim.keymap.set("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+    -- Toggle terminal
+    vim.keymap.set('n', '`', '<cmd>FloatermToggle<CR>')
+    -- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true })
+    vim.keymap.set('t', '`', '<C-\\><C-n>:q<CR>', { silent = true })
+
+    -- File manager
+    vim.keymap.set('n', '<C-space>', '<cmd>FloatermNew --autoclose=0 vifm --select % .<CR>')
+    vim.keymap.set('t', '<C-space>', '<cmd>FloatermKill<CR>')
+
     -- VISUAL
 
     -- Shift selected text up and down

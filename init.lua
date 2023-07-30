@@ -3,7 +3,6 @@ local mappings_ = require("uber.mappings")
 local telescope_ = require("uber.telescope")
 local treesitter_ = require("uber.treesitter")
 local util_ = require("uber.util")
-local nvimtree_ = require("uber.nvimtree")
 local lsp_ = require("uber.lsp")
 local autocomplete_ = require("uber.autocomplete")
 local debug_ = require("uber.debug")
@@ -36,17 +35,6 @@ local plugins = {
             },
         },
         config = function(_, _) vim.cmd([[TSUpdate]]) end
-    },
-    {
-        "nvim-tree/nvim-tree.lua",
-        version = "*",
-        lazy = false,
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = function()
-            require("nvim-tree").setup(nvimtree_.config)
-        end
     },
     {
         -- Manage LSP servers from neovim
@@ -93,6 +81,19 @@ local plugins = {
 
     { 'mfussenegger/nvim-dap' },
     { "rcarriga/nvim-dap-ui" },
+
+    {
+        'vifm/vifm.vim',
+        init = function(_)
+            vim.g.loaded_netrw = false
+            vim.g.loaded_netrwPlugin = false
+            vim.g.loaded_netrwSettings = false
+            vim.g.loaded_netrwFileHandlers = false
+            vim.g.loaded_netrw_gitignore = false
+            vim.g["vifm_replace_netrw"] = true
+        end
+    },
+    { 'voldikss/vim-floaterm' },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -107,7 +108,6 @@ mappings_.nvimtree_setup()
 
 telescope_.setup()
 treesitter_.setup()
-nvimtree_.setup()
 autocomplete_.setup()
 lsp_.setup()
 debug_.setup()
