@@ -82,17 +82,17 @@ local plugins = {
     { 'mfussenegger/nvim-dap' },
     { "rcarriga/nvim-dap-ui" },
 
-    {
-        'vifm/vifm.vim',
-        init = function(_)
-            vim.g.loaded_netrw = false
-            vim.g.loaded_netrwPlugin = false
-            vim.g.loaded_netrwSettings = false
-            vim.g.loaded_netrwFileHandlers = false
-            vim.g.loaded_netrw_gitignore = false
-            vim.g["vifm_replace_netrw"] = true
-        end
-    },
+    -- {
+    --     'vifm/vifm.vim',
+    --     init = function(_)
+    --         vim.g.loaded_netrw = false
+    --         vim.g.loaded_netrwPlugin = false
+    --         vim.g.loaded_netrwSettings = false
+    --         vim.g.loaded_netrwFileHandlers = false
+    --         vim.g.loaded_netrw_gitignore = false
+    --         vim.g["vifm_replace_netrw"] = true
+    --     end
+    -- },
     { 'voldikss/vim-floaterm' },
 }
 local opts = {}
@@ -104,7 +104,6 @@ mappings_.telescope_setup()
 mappings_.portal_setup()
 mappings_.comment_setup()
 mappings_.maximize_setup()
-mappings_.nvimtree_setup()
 
 telescope_.setup()
 treesitter_.setup()

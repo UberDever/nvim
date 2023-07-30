@@ -38,25 +38,6 @@ M.maximize_setup = function()
     vim.keymap.set('n', '<M-w>', maximize.toggle, { noremap = true, silent = true })
 end
 
-M.nvimtree_setup = function()
-    vim.keymap.set("n", "<Tab>", ":NvimTreeFindFileToggle<CR>", { noremap = true, silent = true })
-end
-
-M.nvimtree_mappings = function(bufnr)
-    local api = require "nvim-tree.api"
-
-    local function options(desc)
-        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-    end
-    -- default mappings
-    api.config.mappings.default_on_attach(bufnr)
-    -- vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up'))
-    vim.keymap.set('n', '?', api.tree.toggle_help, options('Help'))
-    vim.keymap.set('n', 'J', api.tree.collapse_all, options('Collapse all'))
-    vim.keymap.del('n', '<Tab>', options("Unmap"))
-    vim.keymap.set('n', '=', api.tree.change_root_to_node, options('CD'))
-end
-
 M.telescope_setup = function()
     local find_git_repo = function()
         local dirs = vim.fs.find('.git', {
@@ -170,8 +151,8 @@ function M.setup()
     vim.keymap.set('t', '`', '<C-\\><C-n>:q<CR>', { silent = true })
 
     -- File manager
-    vim.keymap.set('n', '<C-space>', '<cmd>FloatermNew --autoclose=0 vifm --select % .<CR>')
-    vim.keymap.set('t', '<C-space>', '<cmd>FloatermKill<CR>')
+    -- vim.keymap.set('n', '<C-space>', '<cmd>FloatermNew --autoclose=0 vifm --select % .<CR>')
+    -- vim.keymap.set('t', '<C-space>', '<cmd>FloatermKill<CR>')
 
     -- VISUAL
 

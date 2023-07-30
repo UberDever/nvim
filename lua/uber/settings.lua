@@ -48,6 +48,13 @@ function M.setup()
     end
 
     Beautify("kanagawa")
+
+    -- Disable netrw
+    -- vim.g.loaded_netrw = false
+    -- vim.g.loaded_netrwPlugin = false
+    -- vim.g.loaded_netrwSettings = false
+    -- vim.g.loaded_netrwFileHandlers = false
+    -- vim.g.loaded_netrw_gitignore = false
 end
 
 return M
