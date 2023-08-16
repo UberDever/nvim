@@ -55,6 +55,9 @@ function M.setup()
     -- vim.g.loaded_netrwSettings = false
     -- vim.g.loaded_netrwFileHandlers = false
     -- vim.g.loaded_netrw_gitignore = false
+
+    vim.g.floaterm_width = 0.9
+    vim.g.floaterm_height = 0.9
 end
 
 return M
