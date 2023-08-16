@@ -1,9 +1,0 @@
-{
-    "workspace.library": [
-        "/home/uber/.local/share/nvim/lazy/neodev.nvim/types/stable",
-        "/home/uber/apps/nvim/share/nvim/runtime/lua",
-        "/home/uber/.local/share/nvim/lazy/nvim-dap-ui/lua",
-        "/home/uber/.config/nvim/lua",
-        "${3rd}/luv/library"
-    ]
-}
