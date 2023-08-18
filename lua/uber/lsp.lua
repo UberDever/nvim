@@ -1,9 +1,6 @@
 local M = {}
 
 function M.setup()
-    -- Save without formatting
-    vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
-
     -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
     require('neodev').setup({ library = { plugins = { "nvim-dap-ui" }, types = true }, })
 
