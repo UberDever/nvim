@@ -147,7 +147,7 @@ function M.setup()
 
     -- Toggle terminal
     vim.keymap.set('n', '`', '<cmd>FloatermToggle<CR>')
-    -- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true })
+    vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true })
     vim.keymap.set('t', '`', '<C-\\><C-n>:q<CR>', { silent = true })
 
     -- File manager
@@ -169,6 +169,15 @@ function M.setup()
     vim.keymap.set("v", "gk", "gg", opts)
     vim.keymap.set("v", "gl", "$", opts)
     vim.keymap.set("v", "gh", "^", opts)
+
+    -- User commands
+    vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
+    vim.api.nvim_create_user_command("CopyFilePath",
+        function()
+            local path = vim.fn.expand("%:p")
+            vim.fn.setreg("+", path)
+            vim.notify('Copied "' .. path .. '" to the clipboard!')
+        end, {})
 end
 
 return M
