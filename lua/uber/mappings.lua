@@ -138,8 +138,8 @@ function M.setup()
 
     -- Clipboard stuff
     vim.keymap.set("x", "<M-v>", "\"_dP")
-    vim.keymap.set("n", "<M-v>", "\"*p")
-    vim.keymap.set("n", "<M-c>", "\"*y")
+    vim.keymap.set("n", "<M-v>", "\"+p")
+    vim.keymap.set("n", "<M-c>", "\"+y")
     vim.keymap.set("n", "<M-x>", "\"_d")
 
     -- Replace word under cursor
@@ -161,8 +161,8 @@ function M.setup()
     -- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
 
     -- Clipboard stuff
-    vim.keymap.set("v", "<M-c>", "\"*y")
-    vim.keymap.set("v", "<M-v>", "\"*p")
+    vim.keymap.set("v", "<M-c>", "\"+y")
+    vim.keymap.set("v", "<M-v>", "\"+p")
     vim.keymap.set("v", "<M-x>", "\"_d")
 
     vim.keymap.set("v", "gj", "G", opts)
@@ -178,6 +178,9 @@ function M.setup()
             vim.fn.setreg("+", path)
             vim.notify('Copied "' .. path .. '" to the clipboard!')
         end, {})
+
+    -- Unicode
+    vim.keymap.set("i", "<M-u>l", "<C-v>u03bb") -- Lowercase lambda
 end
 
 return M
