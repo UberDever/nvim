@@ -95,6 +95,7 @@ local plugins = {
     -- },
     { 'voldikss/vim-floaterm' },
     { 'ionide/Ionide-vim' },
+    { 'nvim-treesitter/nvim-treesitter-context' },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
