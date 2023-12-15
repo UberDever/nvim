@@ -2,7 +2,7 @@ local M = {}
 
 local opts = { noremap = true, silent = true }
 
-M.lsp_mappings = function(args)
+M.lsp_mappings = function(_)
     -- local bufnr = args.buf
     -- local client = vim.lsp.get_client_by_id(args.data.client_id)
     vim.keymap.set('n', '<leader>j', vim.lsp.buf.hover, opts)
@@ -52,7 +52,7 @@ M.telescope_setup = function()
     vim.keymap.set("n", "<leader>fp", "<cmd> Telescope find_files <CR>", opts)
     vim.keymap.set("n", "<leader>ff", function()
         local builtin = require("telescope.builtin")
-        local utils = require("telescope.utils")
+        -- local utils = require("telescope.utils")
         local found, dir = find_git_repo()
         if found then
             builtin.find_files({ cwd = dir })
@@ -67,7 +67,7 @@ M.telescope_setup = function()
     vim.keymap.set("n", "<leader>gp", "<cmd> Telescope live_grep <CR>", opts)
     vim.keymap.set("n", "<leader>gf", function()
         local builtin = require("telescope.builtin")
-        local utils = require("telescope.utils")
+        -- local utils = require("telescope.utils")
         local found, dir = find_git_repo()
         if found then
             builtin.live_grep({ cwd = dir })
@@ -78,6 +78,46 @@ M.telescope_setup = function()
         local utils = require("telescope.utils")
         builtin.live_grep({ cwd = utils.buffer_dir() })
     end)
+end
+
+M.gitsigns_setup_f = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', '<leader>hn', function()
+        if vim.wo.diff then return ']c' end
+        vim.schedule(function() gs.next_hunk() end)
+        return '<Ignore>'
+    end, { expr = true })
+    map('n', '<leader>hp', function()
+        if vim.wo.diff then return '[c' end
+        vim.schedule(function() gs.prev_hunk() end)
+        return '<Ignore>'
+    end, { expr = true })
+
+    -- Actions
+    map('n', '<leader>hs', gs.stage_hunk)
+    map('n', '<leader>hr', gs.reset_hunk)
+    map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+    map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hR', gs.reset_buffer)
+    -- map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+    -- map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>hd', gs.diffthis)
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
+    -- map('n', '<leader>td', gs.toggle_deleted)
+
+    -- Text object
+    -- map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 
 function M.setup()

@@ -6,6 +6,7 @@ local util_ = require("uber.util")
 local lsp_ = require("uber.lsp")
 local autocomplete_ = require("uber.autocomplete")
 local debug_ = require("uber.debug")
+local git_ = require("uber.git")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -53,7 +54,11 @@ local plugins = {
         {
             'hrsh7th/nvim-cmp',
             dependencies = {
-                { 'L3MON4D3/LuaSnip' },
+                {
+                    'L3MON4D3/LuaSnip',
+                    version = "v2.*",
+                    build = "make install_jsregexp"
+                },
             }
         },
     },
@@ -96,6 +101,16 @@ local plugins = {
     { 'voldikss/vim-floaterm' },
     { 'ionide/Ionide-vim' },
     { 'nvim-treesitter/nvim-treesitter-context' },
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",         -- required
+            "sindrets/diffview.nvim",        -- optional - Diff integration
+            "nvim-telescope/telescope.nvim", -- optional
+        },
+        config = true
+    },
+    { 'lewis6991/gitsigns.nvim' },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -113,3 +128,4 @@ autocomplete_.setup()
 lsp_.setup()
 debug_.setup()
 util_.setup()
+git_.setup(mappings_.gitsigns_setup_f)
