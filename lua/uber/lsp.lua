@@ -50,39 +50,41 @@ function M.setup()
                 on_attach = default_on_attach,
                 settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
         end,
-        ["gopls"] = function()
-            lspconfig.gopls.setup {
-                cmd = { "gopls", "serve" },
-                filetypes = { "go", "gomod" },
-                root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
-                capabilities = lsp_capabilities,
-                on_attach = function(client, bufnr)
-                    default_on_attach(client, bufnr)
-                    vim.api.nvim_create_autocmd('BufWritePre', {
-                        buffer = bufnr,
-                        callback = function()
-                            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-                        end,
-                    })
-                end,
-                settings = {
-                    gopls = {
-                        completeUnimported = true,
-                        usePlaceholders = true,
-                        analyses = {
-                            unusedparams = true,
-                        },
-                        staticcheck = true,
-                    },
-                },
-            }
-        end
+        -- ["gopls"] = function()
+        -- lspconfig.gopls.setup {
+        --     cmd = { "gopls", "serve" },
+        --     filetypes = { "go", "gomod" },
+        --     root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+        --     capabilities = lsp_capabilities,
+        --     on_attach = function(client, bufnr)
+        --         default_on_attach(client, bufnr)
+        --         vim.api.nvim_create_autocmd('BufWritePre', {
+        --             buffer = bufnr,
+        --             callback = function()
+        --                 vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+        --             end,
+        --         })
+        --     end,
+        --     settings = {
+        --         gopls = {
+        --             completeUnimported = true,
+        --             usePlaceholders = true,
+        --             analyses = {
+        --                 unusedparams = true,
+        --             },
+        --             staticcheck = true,
+        --         },
+        --     },
+        -- }
+        -- end
     }
 
     require('mason').setup()
     require('mason-lspconfig').setup({
         ensure_installed = {
-            'lua_ls', 'clangd', 'cmake', 'gopls', 'marksman', 'pylsp'
+            'lua_ls', 'clangd', 'cmake',
+            -- 'gopls',
+            'marksman', 'pylsp'
         },
         handlers = handlers,
     })
