@@ -218,6 +218,12 @@ function M.setup()
             vim.fn.setreg("+", path)
             vim.notify('Copied "' .. path .. '" to the clipboard!')
         end, {})
+    vim.api.nvim_create_user_command('SetCurrentDirToFilePath',
+        function()
+            local path = vim.fn.expand("%:p")
+            local dir = vim.fs.dirname(path)
+            vim.fn.chdir(dir)
+        end, {})
 
     -- Unicode
     vim.keymap.set("i", "<M-u>l", "<C-v>u03bb") -- Lowercase lambda
