@@ -55,7 +55,7 @@ M.telescope_setup = function()
         -- local utils = require("telescope.utils")
         local found, dir = find_git_repo()
         if found then
-            builtin.find_files({ cwd = dir })
+            builtin.find_files({ cwd = dir, hidden = true, no_ignore = true })
         end
     end)
     vim.keymap.set("n", "<leader>fc", function()
