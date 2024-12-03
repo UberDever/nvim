@@ -132,13 +132,13 @@ function M.setup()
     -- Space - for plugins and their stuff
 
     -- Help for symbol under cursor
-    vim.keymap.set("n", "<leader>?", "K", opts)
+    -- vim.keymap.set("n", "<leader>?", "K", opts)
 
     -- Basic movement
-    vim.keymap.set("n", "J", "}", opts)
-    vim.keymap.set("n", "K", "{", opts)
-    vim.keymap.set("n", "L", "w", opts)
-    vim.keymap.set("n", "H", "b", opts)
+    vim.keymap.set("n", "J", "<cmd>keepjumps norm }<CR>", opts)
+    vim.keymap.set("n", "K", "<cmd>keepjumps norm {<CR>", opts)
+    -- vim.keymap.set("n", "L", "w", opts)
+    -- vim.keymap.set("n", "H", "b", opts)
     vim.keymap.set("n", "<C-j>", "<C-d>zz", opts)
     vim.keymap.set("n", "<C-k>", "<C-u>zz", opts)
 
