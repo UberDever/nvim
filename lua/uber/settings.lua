@@ -21,7 +21,7 @@ local options = {
     magic = true,
 
     number = true,
-    relativenumber = true,
+    -- relativenumber = true,
     -- mouse = "",
     encoding = "utf8",
     lisp = true,
