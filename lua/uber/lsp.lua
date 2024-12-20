@@ -11,7 +11,7 @@ function M.setup()
         if client.server_capabilities.documentFormattingProvider then
             vim.api.nvim_create_autocmd('BufWritePre', {
                 callback = function()
-                    vim.lsp.buf.format()
+                    vim.lsp.buf.format { async = false }
                 end,
                 buffer = bufnr
             })
@@ -49,6 +49,24 @@ function M.setup()
                 capabilities = lsp_capabilities,
                 on_attach = default_on_attach,
                 settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+        end,
+        ["pylsp"] = function()
+            lspconfig.pylsp.setup {
+                capabilities = lsp_capabilities,
+                on_attach = default_on_attach,
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            pylint = {
+                                enabled = true,
+                                args = {}
+                            },
+                            autopep8 = { enabled = false, },
+                            black = { enabled = true, }
+                        }
+                    }
+                }
+            }
         end,
         -- ["gopls"] = function()
         -- lspconfig.gopls.setup {
