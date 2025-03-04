@@ -8,6 +8,8 @@ M.lsp_mappings = function(_)
     vim.keymap.set('n', '<leader>j', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<leader>.', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>d', '<cmd> Telescope lsp_definitions <CR>', opts)
+    vim.keymap.set('n', '<leader>D',
+        function() return require('telescope.builtin').lsp_definitions({ jump_type = "tab" }) end, opts)
     vim.keymap.set('n', '<leader>i', '<cmd> Telescope lsp_implementations <CR>', opts)
     vim.keymap.set('n', '<leader>r', '<cmd> Telescope lsp_references <CR>', opts)
     vim.keymap.set('n', '<leader>t', '<cmd> Telescope lsp_type_definitions <CR>', opts)

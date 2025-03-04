@@ -1,3 +1,4 @@
+-- https://github.com/martinsione/dotfiles/blob/main/src/.config/nvim/lua/plugins/lsp.lua
 local M = {}
 
 function M.setup()
@@ -9,12 +10,22 @@ function M.setup()
     local default_on_attach = function(client, bufnr)
         -- Format on save
         if client.server_capabilities.documentFormattingProvider then
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                callback = function()
-                    vim.lsp.buf.format { async = false }
-                end,
-                buffer = bufnr
-            })
+            if client.name ~= "clangd" then
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                    callback = function()
+                        vim.lsp.buf.format { async = false }
+                    end,
+                    buffer = bufnr
+                })
+            else
+                vim.api.nvim_create_autocmd('BufWritePost', {
+                    callback = function(args)
+                        local cwd = vim.fn.expand("~") .. "/engine/"
+                        vim.cmd("silent !git-clang-format-18 --force -- " .. args.file, {})
+                    end,
+                    buffer = bufnr
+                })
+            end
         end
 
         if client.server_capabilities.documentHighlightProvider then
