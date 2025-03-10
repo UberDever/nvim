@@ -15,8 +15,10 @@ M.lsp_mappings = function(_)
     vim.keymap.set('n', '<leader>t', '<cmd> Telescope lsp_type_definitions <CR>', opts)
     vim.keymap.set('n', '<leader>s', '<cmd> Telescope lsp_document_symbols <CR>', opts)
     vim.keymap.set('n', '<leader>a', '<cmd> Telescope diagnostics <CR>', opts)
-    vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', '<leader>n',
+        function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+    vim.keymap.set('n', '<leader>p',
+        function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, opts)
     vim.keymap.set('n', '<leader>c', vim.lsp.buf.rename, opts)
 end
 
