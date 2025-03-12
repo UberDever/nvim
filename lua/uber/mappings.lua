@@ -54,6 +54,7 @@ M.telescope_setup = function()
     end
 
     vim.keymap.set("n", "<leader>fp", "<cmd> Telescope find_files <CR>", opts)
+    vim.keymap.set("n", "<leader>fr", require("telescope").extensions.recent_files.pick, opts)
     vim.keymap.set("n", "<leader>ff", function()
         local builtin = require("telescope.builtin")
         -- local utils = require("telescope.utils")

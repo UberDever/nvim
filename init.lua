@@ -26,6 +26,10 @@ local plugins = {
         tag = '0.1.2',
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
+    {
+        "smartpde/telescope-recent-files",
+        dependencies = { 'nvim-telescope/telescope.nvim' }
+    },
     { "rebelot/kanagawa.nvim" },
     {
         "nvim-treesitter/nvim-treesitter",

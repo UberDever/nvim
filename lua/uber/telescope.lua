@@ -37,6 +37,8 @@ function M.setup()
             },
         },
     }
+
+    telescope.load_extension("recent_files")
 end
 
 return M
