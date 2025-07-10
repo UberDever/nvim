@@ -7,6 +7,7 @@ local lsp_ = require("uber.lsp")
 local autocomplete_ = require("uber.autocomplete")
 local debug_ = require("uber.debug")
 local git_ = require("uber.git")
+local oil_ = require("uber.oil")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -115,6 +116,26 @@ local plugins = {
         config = true
     },
     { 'lewis6991/gitsigns.nvim' },
+    {
+        "amitds1997/remote-nvim.nvim",
+        version = "*",                       -- Pin to GitHub releases
+        dependencies = {
+            "nvim-lua/plenary.nvim",         -- For standard functions
+            "MunifTanjim/nui.nvim",          -- To build the plugin UI
+            "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+        },
+        config = true,
+    },
+    {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+        lazy = false,
+    }
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -133,3 +154,4 @@ lsp_.setup()
 debug_.setup()
 util_.setup()
 git_.setup(mappings_.gitsigns_setup_f)
+oil_.setup(mappings_.oil_mappings())

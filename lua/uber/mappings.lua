@@ -234,4 +234,26 @@ function M.setup()
     vim.keymap.set("i", "<M-u>l", "<C-v>u03bb") -- Lowercase lambda
 end
 
+M.oil_mappings = function()
+    return {
+        ["<leader>?"] = { "actions.show_help", mode = "n" },
+        ["<CR>"] = "actions.select",
+        -- ["<C-s>"] = { "actions.select", opts = { vertical = true } },
+        -- ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
+        -- ["<C-t>"] = { "actions.select", opts = { tab = true } },
+        ["<leader>j"] = "actions.preview",
+        -- ["<C-c>"] = { "actions.close", mode = "n" },
+        ["<leader>r"] = "actions.refresh",
+        ["<C-h>"] = { "actions.parent", mode = "n" },
+        ["<C-l>"] = "actions.select",
+        ["`"] = { "actions.open_cwd", mode = "n" },
+        ["~"] = { "actions.cd", mode = "n" },
+        -- ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        ["<leader>s"] = { "actions.change_sort", mode = "n" },
+        ["<leader>x"] = "actions.open_external",
+        ["<leader>."] = { "actions.toggle_hidden", mode = "n" },
+        ["<leader>\\"] = { "actions.toggle_trash", mode = "n" },
+    }
+end
+
 return M
