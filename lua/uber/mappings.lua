@@ -246,7 +246,7 @@ M.oil_mappings = function()
         ["<leader>r"] = "actions.refresh",
         ["<C-h>"] = { "actions.parent", mode = "n" },
         ["<C-l>"] = "actions.select",
-        ["`"] = { "actions.open_cwd", mode = "n" },
+        ["<leader>c"] = { "actions.open_cwd", mode = "n" },
         ["~"] = { "actions.cd", mode = "n" },
         -- ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
         ["<leader>s"] = { "actions.change_sort", mode = "n" },
