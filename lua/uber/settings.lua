@@ -22,7 +22,7 @@ local options = {
 
     number = true,
     -- relativenumber = true,
-    -- mouse = "",
+    mouse = "",
     encoding = "utf8",
     lisp = true,
 

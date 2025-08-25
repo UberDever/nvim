@@ -195,6 +195,21 @@ function M.setup()
     vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true })
     vim.keymap.set('t', '`', '<C-\\><C-n>:q<CR>', { silent = true })
 
+    vim.keymap.set("n", "<leader>cd", function()
+        local oil = require('oil')
+        local current_dir = oil.get_current_dir()
+        local current_win = vim.api.nvim_get_current_win()
+
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+                vim.api.nvim_set_current_win(win)
+                vim.fn.chansend(vim.b.terminal_job_id, 'cd ' .. current_dir .. '\n')
+                vim.api.nvim_set_current_win(current_win)
+                break
+            end
+        end
+    end)
     -- File manager
     -- vim.keymap.set('n', '<C-space>', '<cmd>FloatermNew --autoclose=0 vifm --select % .<CR>')
     -- vim.keymap.set('t', '<C-space>', '<cmd>FloatermKill<CR>')
@@ -215,6 +230,7 @@ function M.setup()
     vim.keymap.set("v", "gl", "$", opts)
     vim.keymap.set("v", "gh", "^", opts)
 
+
     -- User commands
     vim.api.nvim_create_user_command('SaveWithoutFormatting', ':noautocmd w', { nargs = 0 })
     vim.api.nvim_create_user_command("CopyFilePath",
@@ -222,12 +238,6 @@ function M.setup()
             local path = vim.fn.expand("%:p")
             vim.fn.setreg("+", path)
             vim.notify('Copied "' .. path .. '" to the clipboard!')
-        end, {})
-    vim.api.nvim_create_user_command('SetCurrentDirToFilePath',
-        function()
-            local path = vim.fn.expand("%:p")
-            local dir = vim.fs.dirname(path)
-            vim.fn.chdir(dir)
         end, {})
 
     -- Unicode
