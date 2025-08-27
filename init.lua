@@ -45,7 +45,10 @@ local plugins = {
     {
         -- Manage LSP servers from neovim
         { 'williamboman/mason.nvim' },
-        { 'williamboman/mason-lspconfig.nvim' },
+        {
+            'williamboman/mason-lspconfig.nvim',
+            commit = "43894ad"
+        },
 
         -- LSP Support
         {
