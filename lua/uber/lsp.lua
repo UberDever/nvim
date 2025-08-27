@@ -79,33 +79,33 @@ function M.setup()
                 }
             }
         end,
-        -- ["gopls"] = function()
-        -- lspconfig.gopls.setup {
-        --     cmd = { "gopls", "serve" },
-        --     filetypes = { "go", "gomod" },
-        --     root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
-        --     capabilities = lsp_capabilities,
-        --     on_attach = function(client, bufnr)
-        --         default_on_attach(client, bufnr)
-        --         vim.api.nvim_create_autocmd('BufWritePre', {
-        --             buffer = bufnr,
-        --             callback = function()
-        --                 vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-        --             end,
-        --         })
-        --     end,
-        --     settings = {
-        --         gopls = {
-        --             completeUnimported = true,
-        --             usePlaceholders = true,
-        --             analyses = {
-        --                 unusedparams = true,
-        --             },
-        --             staticcheck = true,
-        --         },
-        --     },
-        -- }
-        -- end
+        ["gopls"] = function()
+            lspconfig.gopls.setup {
+                cmd = { "gopls", "serve" },
+                filetypes = { "go", "gomod" },
+                root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+                capabilities = lsp_capabilities,
+                on_attach = function(client, bufnr)
+                    default_on_attach(client, bufnr)
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+                        end,
+                    })
+                end,
+                settings = {
+                    gopls = {
+                        completeUnimported = true,
+                        usePlaceholders = true,
+                        analyses = {
+                            unusedparams = true,
+                        },
+                        staticcheck = true,
+                    },
+                },
+            }
+        end
     }
 
     require('mason').setup()

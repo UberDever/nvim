@@ -135,8 +135,15 @@ local plugins = {
         dependencies = { { "echasnovski/mini.icons", opts = {} } },
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
         lazy = false,
-    }
-}
+    },
+    {
+        'smoka7/hop.nvim',
+        version = "*",
+        opts = {
+            keys = 'etovxqpdygfblzhckisuran',
+            multi_windows = true
+        }
+    } }
 local opts = {}
 require("lazy").setup(plugins, opts)
 
@@ -146,6 +153,7 @@ mappings_.telescope_setup()
 mappings_.portal_setup()
 mappings_.comment_setup()
 mappings_.maximize_setup()
+mappings_.hop_setup()
 
 telescope_.setup()
 treesitter_.setup()

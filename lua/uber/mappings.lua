@@ -125,6 +125,28 @@ M.gitsigns_setup_f = function(bufnr)
     -- map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 
+M.oil_mappings = function()
+    return {
+        ["<leader>?"] = { "actions.show_help", mode = "n" },
+        ["<CR>"] = "actions.select",
+        -- ["<C-s>"] = { "actions.select", opts = { vertical = true } },
+        -- ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
+        -- ["<C-t>"] = { "actions.select", opts = { tab = true } },
+        ["<leader>j"] = "actions.preview",
+        -- ["<C-c>"] = { "actions.close", mode = "n" },
+        ["<leader>r"] = "actions.refresh",
+        ["<C-h>"] = { "actions.parent", mode = "n" },
+        ["<C-l>"] = "actions.select",
+        ["<leader>c"] = { "actions.open_cwd", mode = "n" },
+        ["~"] = { "actions.cd", mode = "n" },
+        -- ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        ["<leader>s"] = { "actions.change_sort", mode = "n" },
+        ["<leader>x"] = "actions.open_external",
+        ["<leader>."] = { "actions.toggle_hidden", mode = "n" },
+        ["<leader>\\"] = { "actions.toggle_trash", mode = "n" },
+    }
+end
+
 function M.setup()
     vim.g.mapleader = " "
     vim.g.maplocalleader = " "
@@ -244,26 +266,23 @@ function M.setup()
     vim.keymap.set("i", "<M-u>l", "<C-v>u03bb") -- Lowercase lambda
 end
 
-M.oil_mappings = function()
-    return {
-        ["<leader>?"] = { "actions.show_help", mode = "n" },
-        ["<CR>"] = "actions.select",
-        -- ["<C-s>"] = { "actions.select", opts = { vertical = true } },
-        -- ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
-        -- ["<C-t>"] = { "actions.select", opts = { tab = true } },
-        ["<leader>j"] = "actions.preview",
-        -- ["<C-c>"] = { "actions.close", mode = "n" },
-        ["<leader>r"] = "actions.refresh",
-        ["<C-h>"] = { "actions.parent", mode = "n" },
-        ["<C-l>"] = "actions.select",
-        ["<leader>c"] = { "actions.open_cwd", mode = "n" },
-        ["~"] = { "actions.cd", mode = "n" },
-        -- ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-        ["<leader>s"] = { "actions.change_sort", mode = "n" },
-        ["<leader>x"] = "actions.open_external",
-        ["<leader>."] = { "actions.toggle_hidden", mode = "n" },
-        ["<leader>\\"] = { "actions.toggle_trash", mode = "n" },
-    }
+M.hop_setup = function()
+    local hop = require('hop')
+    vim.keymap.set('n', '<Tab>', function()
+        hop.hint_char2({})
+    end)
+    -- vim.keymap.set('', 'f', function()
+    --     hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+    -- end, { remap = true })
+    -- vim.keymap.set('', 'F', function()
+    --     hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+    -- end, { remap = true })
+    -- vim.keymap.set('', 't', function()
+    --     hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+    -- end, { remap = true })
+    -- vim.keymap.set('', 'T', function()
+    --     hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+    -- end, { remap = true })
 end
 
 return M
