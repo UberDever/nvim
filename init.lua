@@ -24,7 +24,6 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
     {
@@ -45,10 +44,6 @@ local plugins = {
     {
         -- Manage LSP servers from neovim
         { 'williamboman/mason.nvim' },
-        {
-            'williamboman/mason-lspconfig.nvim',
-            commit = "43894ad"
-        },
 
         -- LSP Support
         {

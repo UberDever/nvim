@@ -19,6 +19,10 @@ M.lsp_mappings = function(_)
         function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
     vim.keymap.set('n', '<leader>p',
         function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+    vim.keymap.set('n', '<leader>N',
+        function() vim.diagnostic.goto_next() end, opts)
+    vim.keymap.set('n', '<leader>P',
+        function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set('n', '<leader>c', vim.lsp.buf.rename, opts)
 end
 

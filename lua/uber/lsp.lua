@@ -45,78 +45,72 @@ function M.setup()
         end
     end
 
-    local lspconfig = require('lspconfig')
-    local default_setup_server = function(server_name)
-        lspconfig[server_name].setup {
-            on_attach = default_on_attach,
-            capabilities = lsp_capabilities
-        }
-    end
-
-    local handlers = {
-        default_setup_server,
-        ["lua_ls"] = function()
-            lspconfig.lua_ls.setup {
-                capabilities = lsp_capabilities,
-                on_attach = default_on_attach,
-                settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
-        end,
-        ["pylsp"] = function()
-            lspconfig.pylsp.setup {
-                capabilities = lsp_capabilities,
-                on_attach = default_on_attach,
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pylint = {
-                                enabled = true,
-                                args = {}
-                            },
-                            autopep8 = { enabled = false, },
-                            black = { enabled = true, }
-                        }
-                    }
-                }
-            }
-        end,
-        ["gopls"] = function()
-            lspconfig.gopls.setup {
-                cmd = { "gopls", "serve" },
-                filetypes = { "go", "gomod" },
-                root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
-                capabilities = lsp_capabilities,
-                on_attach = function(client, bufnr)
-                    default_on_attach(client, bufnr)
-                    vim.api.nvim_create_autocmd('BufWritePre', {
-                        buffer = bufnr,
-                        callback = function()
-                            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-                        end,
-                    })
-                end,
-                settings = {
-                    gopls = {
-                        completeUnimported = true,
-                        usePlaceholders = true,
-                        analyses = {
-                            unusedparams = true,
-                        },
-                        staticcheck = true,
-                    },
+    require('mason').setup()
+    require('lspconfig')
+    vim.lsp.config('lua_ls', {
+        capabilities = lsp_capabilities,
+        on_attach = default_on_attach,
+        settings = {
+            Lua = {
+                diagnostics = { globals = { 'vim' } },
+                workspace = {
+                    library = vim.api.nvim_get_runtime_file('', true), -- Make server aware of Neovim runtime
                 },
             }
-        end
-    }
-
-    require('mason').setup()
-    require('mason-lspconfig').setup({
-        ensure_installed = {
-            'lua_ls', 'clangd', 'cmake',
-            -- 'gopls',
-            'marksman', 'pylsp'
-        },
-        handlers = handlers,
+        }
     })
+    vim.lsp.config('pylsp', {
+        capabilities = lsp_capabilities,
+        on_attach = default_on_attach,
+        settings = {
+            pylsp = {
+                plugins = {
+                    pylint = {
+                        enabled = true,
+                        args = {}
+                    },
+                    autopep8 = { enabled = false, },
+                    black = { enabled = true, }
+                }
+            }
+        }
+    })
+    vim.lsp.config('gopls', {
+        -- Example: Override capabilities (ensure your LSP client supports this)
+        -- capabilities = {
+        --   workspace = {
+        --     didChangeWatchedFiles = { dynamicRegistration = false },
+        --   },
+        -- },
+        settings = {
+            gopls = {
+                -- Example: Enable all inlay hints for gopls
+                hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true, -- Example: Also enable constant value hints
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
+                -- Example: Add build tags
+                -- buildFlags = { "-tags=e2e,integration" },
+                -- Add other gopls specific settings here
+            },
+        },
+        -- Example: Add a custom on_attach specifically for gopls
+        -- on_attach = function(client, bufnr)
+        --   print("Attaching gopls with custom settings!")
+        --   -- Add gopls-specific keymaps or logic here
+        -- end,
+    })
+
+    vim.lsp.enable('clangd')
+    vim.lsp.enable('lua_ls')
+    vim.lsp.enable('pylsp')
+    vim.lsp.enable('gopls')
+    vim.lsp.enable('marksman')
 
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
