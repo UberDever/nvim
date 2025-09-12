@@ -76,12 +76,8 @@ function M.setup()
         }
     })
     vim.lsp.config('gopls', {
-        -- Example: Override capabilities (ensure your LSP client supports this)
-        -- capabilities = {
-        --   workspace = {
-        --     didChangeWatchedFiles = { dynamicRegistration = false },
-        --   },
-        -- },
+        capabilities = lsp_capabilities,
+        on_attach = default_on_attach,
         settings = {
             gopls = {
                 -- Example: Enable all inlay hints for gopls
